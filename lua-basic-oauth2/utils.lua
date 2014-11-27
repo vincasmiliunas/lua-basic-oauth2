@@ -69,7 +69,8 @@ function M:httpRequest(url, payload, headers, verb, options)
 			table.insert(output, data)
 		end,
 		headerfunction = function(data)
-			if code ~= 0 then return end
+			-- skip empty lines and other header lines once code is set to a non-100-Continue value
+			if #data <= 2 or not (code == 0 or code == 100) then return end
 			code = tonumber(data:match('^[^ ]+ ([0-9]+) '))
 		end}
 	return table.concat(output), code
