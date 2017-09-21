@@ -59,8 +59,8 @@ function M:httpRequest(url, payload, headers, verb, options)
 		curl:post(payload)
 	elseif payload then
 		curl:setopt_post(1)
-		curl:setopt_postfields(payload)
-		curl:setopt_postfieldsize(#payload)
+		curl:setopt_postfields(payload, #payload)
+--		curl:setopt_postfieldsize(#payload)
 	end
 	local output = {}
 	local code = 0
